@@ -16,7 +16,7 @@ def nova_by_project(project):
     username = request.args.get('username')
     password = request.args.get('password')
     if not project or not username or not password:
-        return {"error": "Необходимо указать OS_PROJECT_NAME, OS_USERNAME, OS_PASSWORD. try / for help"}
+        return {"error": "OS_PROJECT_NAME, OS_USERNAME, OS_PASSWORD can't be empty. try / for help"}
     
     if not admin_api.auth(username, password, project):
         return {"error": "403 not auth"}
