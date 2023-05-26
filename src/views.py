@@ -5,8 +5,9 @@ from flask import request
 
 @app.route("/")
 def index():
+    admin_api.clean()
     return {
-        "GET": "http://<THIS_URL>:<PORT>/<OS_PROJECT_NAME>?username=<OS_USERNAME>/&password=<OS_PASSWORD>"
+        "GET": "http://<THIS_URL>:<PORT>/<OS_PROJECT_NAME>?username=<OS_USERNAME>&password=<OS_PASSWORD>"
         }
 
 @app.route("/<project>")
@@ -28,5 +29,6 @@ def nova_by_project(project):
         return {"error": err}    
     
     admin_api.load()
+    admin_api.filter_hyper()
     return [hpv.__dict__ for hpv in admin_api.hypervisors]
        

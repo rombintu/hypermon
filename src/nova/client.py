@@ -42,6 +42,8 @@ class Nova:
         if os_project_name=="":
             return "OS_PROJECT_NAME is null"
         self.creds['project_name'] = os_project_name
+        self.creds['username'] = self.admin_user
+        self.creds['password'] = self.admin_pass
         self.nova = Client(**self.creds)
         return None
     
@@ -98,6 +100,13 @@ class Nova:
                 )
             )
 
+    def filter_hyper(self):
+        tmp = []
+        for h in self.hypervisors:
+            if len(h.vms):
+                tmp.append(h)
+        self.hypervisors = tmp
+    
     def filter_vm(self, hyper_hostname):
         tmp = []
         for srv in self.servers:
